@@ -22,5 +22,11 @@ jobs:
       - name: Build
         run: dotnet build src/UnitTestingTutorial.slnx
 
-      - name: Test
-        run: dotnet test src/UnitTestingTutorial.slnx
+      - name: Test with coverage
+        run: dotnet test src/UnitTestingTutorial.slnx --collect:"XPlat Code Coverage" --results-directory TestResults
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-cobertura-xml
+          path: TestResults/**/coverage.cobertura.xml
